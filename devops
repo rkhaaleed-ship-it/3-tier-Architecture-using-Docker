@@ -1,0 +1,18 @@
+Environment Setup
+  add environment setup instructions for full DevOps cycle
+Added detailed environment setup documentation including:
+Prerequisites for Ubuntu/WSL
+Installation steps for Git
+Installation and configuration of Docker & Docker Compose
+Added Docker repository, GPG keys, and dependencies
+Enabled Docker service and added user to docker group
+Installed kubectl (latest stable), kind, and Helm
+Added Ansible installation steps for upcoming Jenkins automation
+This commit prepares the development environment for building the 3-tier architecture using Docker, Kubernetes (KinD), and automation tools.
+  ------------------------------------------------------------------------------------------------------------------------------
+  ---
+1. Install Git and Docker (Ubuntu)
+2. Install kubectl + kind + Helm
+3. Install Ansible (for Jenkins later)
+4.Verification
+After installation, verify everything is working
