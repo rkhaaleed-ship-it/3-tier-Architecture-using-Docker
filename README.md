@@ -258,16 +258,19 @@ curl http://localhost:3000
 
 <img width="468" height="76" alt="Picture3 png2222" src="https://github.com/user-attachments/assets/a7c010c3-1e48-4b77-bafc-7b0ae3589ec7" />
 <img width="468" height="118" alt="Picture4 png55" src="https://github.com/user-attachments/assets/c02e6efc-cda7-4e5d-9df3-18007bcad4fe" />
-##  Backend Dependencies Fix
 
-### Problem
+
+# Backend Dependencies Fix
+
+# Problem
 The original `requirements.txt` contained outdated and incompatible libraries that caused Docker build failures.
 
-### Solution  
+# Solution  
 Updated to modern, compatible versions:
 
-#### Before (`backend-flask/requirements.txt`):
-```txt
+# Before (`backend-flask/requirements.txt`):
+```
+txt
 flask==1.1.2
 flask-Cors==3.0.8
 flask-MySQLdb==0.2.0
@@ -276,6 +279,7 @@ requests==2.23.0
 jinja2==2.11.3
 MarkupSafe==2.0.1
 itsdangerous==2.0.1
+```
 
 
   # Key Changes:
