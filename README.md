@@ -178,6 +178,45 @@ ansible --version
 ```
 
 
+# 3-Tier Web Application - Docker Deployment
+
+A complete 3-tier web application containerized with Docker and orchestrated with Docker Compose. This project demonstrates a modern DevOps workflow for containerizing multi-service applications.
+
+## Architecture
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Run the Application
+```
+git clone https://github.com/your-username/3-tier-Architecture-using-Docker.git
+cd 3-tier-Architecture-using-Docker
+```
+# Start all services
+```
+docker-compose up -d
+```
+# Verify services are running
+```
+docker-compose ps
+```
+ # Container Details
+Backend Service (backend-app)
+Image: Custom Python Flask application
+Port: 5000
+# Environment Variables:
+MYSQL_HOST=mysql-app
+MYSQL_USER=root
+MYSQL_PASSWORD=root123!
+MYSQL_DB=testdb
+# Frontend Service (frontend-app)
+Image: Python HTTP server serving static HTML
+Port: 3000
+Features: Interactive web interface with API testing
+# Database Service (mysql-app)
+Image: MySQL 8.0
+
+Port: 3306
 
 
 
