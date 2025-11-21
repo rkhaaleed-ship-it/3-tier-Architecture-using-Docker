@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-app
+    environment:
+      MYSQL_ROOT_PASSWORD: root123!
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend-flask
+    container_name: backend-app
+    environment:
+      MYSQL_HOST: mysql-app
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123!
+      MYSQL_DB: testdb
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend-html
+    container_name: frontend-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
