@@ -215,8 +215,36 @@ Port: 3000
 Features: Interactive web interface with API testing
 # Database Service (mysql-app)
 Image: MySQL 8.0
-
 Port: 3306
+# Development
+# Building Images Manually
+```
+cd backend-flask
+docker build -t 3tier-backend:latest .
+```
+```
+cd ../frontend-html
+docker build -t 3tier-frontend:latest .
+```
+# Running Individual Containers
+
+```
+docker network create 3tier-network
+```
+# Testing
+```
+docker-compose ps
+```
+```
+curl http://localhost:5000
+```
+```
+curl http://localhost:3000
+```
+
+
+
+
 
 
 
