@@ -382,6 +382,8 @@ kubectl set image deployment/mysql-deployment mysql=mysql:5.7
 kubectl get pods
 ```
 # Test Application Access
+<img width="950" height="437" alt="Screenshot 2025-11-24 190508 pngmnn" src="https://github.com/user-attachments/assets/9f076f34-29d9-4ee6-84f0-beba2bfc21bc" />
+
 
 
  
