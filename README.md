@@ -317,6 +317,19 @@ docker pull rawankhaled2/final_app:backend-latest
 docker pull rawankhaled2/final_app:frontend-latest
 ```
 <img width="956" height="467" alt="dh" src="https://github.com/user-attachments/assets/361903b5-98d5-4902-bbad-a35625598648" />
+# KinD Cluster Setup
+# Create KinD Cluster
+# Create cluster
+```
+kind create cluster --name final-project --config kind-config.yaml
+```
+```
+kubectl cluster-info
+kubectl get nodes
+```
+
+
+
 
 ر
 
