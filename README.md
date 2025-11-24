@@ -76,6 +76,18 @@ sudo docker [commands] run
 ```
  mysql –h <ip address> -u <user name> -p <password(if any)> 
 ```
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<img width="640" height="380" alt="Screenshot 2025-11-24 192124" src="https://github.com/user-attachments/assets/0e5deb42-5740-4f29-a650-79db2b1d8176" />
+
+# Table of Contents
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Overview
+Setup Instructions for KinD Cluster
+CI/CD Pipeline Configuration
+Kubernetes Manifests and Application Architecture
+Monitoring with Prometheus and Grafana
+GitOps - CD with ArgoCD
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # DEVOPS add environment setup instructions for full DevOps cycle:
 Added detailed environment setup documentation including:
