@@ -317,6 +317,8 @@ docker pull rawankhaled2/final_app:backend-latest
 docker pull rawankhaled2/final_app:frontend-latest
 ```
 <img width="956" height="467" alt="dh" src="https://github.com/user-attachments/assets/361903b5-98d5-4902-bbad-a35625598648" />
+
+
 # KinD Cluster Setup
 # Create KinD Cluster
 # Create cluster
@@ -327,7 +329,62 @@ kind create cluster --name final-project --config kind-config.yaml
 kubectl cluster-info
 kubectl get nodes
 ```
+# Create Kubernetes Directory 
+```
+mkdir -p k8s-manifests
+cd k8s-manifests
+```
+# Database Deployment
+mysql-deployment.yaml
 
+# Backend Deployment
+backend-deployment.yaml
+
+# Frontend Deployment
+frontend-deployment.yaml
+
+# Apply Kubernetes Manifests
+```
+kubectl apply -f mysql-deployment.yaml
+```
+
+```
+kubectl apply -f backend-deployment.yaml  
+```
+
+```
+kubectl apply -f frontend-deployment.yaml
+```
+# Check status
+```
+kubectl get all
+```
+```
+kubectl get pods
+```
+```
+kubectl get services
+```
+ # Use Public Images for Testing
+ 
+```
+kubectl set image deployment/frontend-deployment frontend=nginx:alpine
+```
+
+```
+kubectl set image deployment/backend-deployment backend=nginx:alpine
+```
+
+```
+kubectl set image deployment/mysql-deployment mysql=mysql:5.7
+```
+```
+kubectl get pods
+```
+# Test Application Access
+
+
+ 
 
 
 
