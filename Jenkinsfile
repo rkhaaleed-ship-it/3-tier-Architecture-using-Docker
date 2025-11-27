@@ -5,7 +5,7 @@ pipeline {
         stage(' Get Code') {
             steps {
                 echo 'Downloading code from GitHub...'
-                git branch: 'main', 
+                git branch: 'master', 
                 url: 'https://github.com/rkhaaleed-ship-it/3-tier-Architecture-using-Docker.git'
             }
         }
