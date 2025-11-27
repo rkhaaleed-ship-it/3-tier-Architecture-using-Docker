@@ -23,8 +23,15 @@ spec:
         - name: MYSQL_USER
           value: "root"
         - name: MYSQL_PASSWORD
-          value: "password"
-
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: mysql-root-password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: mysql-database
 ---
 apiVersion: v1
 kind: Service
@@ -36,7 +43,7 @@ spec:
   ports:
   - port: 5000
     targetPort: 5000
-  type: LoadBalancer
+  type: ClusterIP
 
 ---
 apiVersion: apps/v1
@@ -58,7 +65,6 @@ spec:
         image: frontend-html:latest
         ports:
         - containerPort: 80
-
 ---
 apiVersion: v1
 kind: Service
@@ -70,7 +76,7 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-  type: LoadBalancer
+  type: ClusterIP
 
 ---
 apiVersion: apps/v1
@@ -94,10 +100,15 @@ spec:
         - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "password"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: mysql-root-password
         - name: MYSQL_DATABASE
-          value: "appdb"
-
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: mysql-database
 ---
 apiVersion: v1
 kind: Service
@@ -109,3 +120,4 @@ spec:
   ports:
   - port: 3306
     targetPort: 3306
+  type: ClusterIP
