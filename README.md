@@ -396,6 +396,11 @@ kubectl get pods
 # Test Application Access
 <img width="950" height="437" alt="Screenshot 2025-11-24 190508 pngmnn" src="https://github.com/user-attachments/assets/9f076f34-29d9-4ee6-84f0-beba2bfc21bc" />
 
+# Jenkins CI/CD 
+<img width="922" height="465" alt="Screenshot 2025-11-27 182841" src="https://github.com/user-attachments/assets/91cac3b6-29ca-439f-a124-b06ed52919b2" />
+<img width="949" height="463" alt="Screenshot 2025-11-27 182335" src="https://github.com/user-attachments/assets/91715fcf-c4b7-4cc5-b149-f4e4e9905e3c" />
+
+
 
 
  
