@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    environment {
+        APP_NAME = "3tier-app"
+    }
+    
     stages {
         stage('Get Code') {
             steps {
@@ -11,58 +15,59 @@ pipeline {
             }
         }
         
-        stage('Setup Files') {
+        stage('Setup Kubernetes Secrets') {
             steps {
+                echo 'Creating Kubernetes Secrets...'
                 sh '''
-                    echo "Setting up project files..."
-                    cp ./database-mysql/docker-compose.yml ./docker-compose.yml
-                    ls -la docker-compose.yml
-                    cat docker-compose.yml
+                    kubectl create secret generic mysql-secrets \
+                        --from-literal=mysql-root-password=mysecret123 \
+                        --from-literal=mysql-database=appdb \
+                        --dry-run=client -o yaml | kubectl apply -f -
+                    
+                    kubectl get secrets
                 '''
             }
         }
         
-        stage('Test Docker Access') {
+        stage('Deploy to Kubernetes') {
             steps {
+                echo 'Deploying application to Kubernetes...'
                 sh '''
-                    echo "Testing Docker access..."
-                    docker version
-                    docker ps
-                    echo "Docker test completed"
-                '''
-            }
-        }
-        
-        stage('Build Docker Images') {
-            steps {
-                sh '''
-                    echo "Building Docker images..."
-                    docker-compose build --no-cache
-                    echo "Build completed successfully"
-                '''
-            }
-        }
-        
-        stage('Deploy Application') {
-            steps {
-                sh '''
-                    echo "Deploying application..."
-                    docker-compose up -d
-                    sleep 10
+                    kubectl apply -f my-app.yaml
+                    
+                    sleep 30
+                    
+                    kubectl get pods
+                    kubectl get services
                 '''
             }
         }
         
         stage('Verify Deployment') {
             steps {
+                echo 'Verifying application deployment...'
                 sh '''
-                    echo "Verifying deployment..."
-                    docker ps
-                    echo "---"
-                    docker-compose ps
-                    echo "---"
-                    curl -s http://localhost:5000 || echo "Backend not ready yet"
-                    curl -s http://localhost:80 || echo "Frontend not ready yet"
+                    kubectl get pods -o wide
+                    echo "--- Services ---"
+                    kubectl get services
+                    echo "--- Secrets ---"
+                    kubectl get secrets
+                    
+                    kubectl port-forward service/backend-service 5000:5000 &
+                    sleep 5
+                    curl -s http://localhost:5000/ || echo "Backend is starting..."
+                    pkill kubectl
+                '''
+            }
+        }
+        
+        stage('Setup Ingress') {
+            steps {
+                echo 'Setting up Ingress...'
+                sh '''
+                    kubectl apply -f ingress.yaml
+                    
+                    kubectl get ingress
                 '''
             }
         }
@@ -70,8 +75,20 @@ pipeline {
     
     post {
         always {
-            echo '=== PIPELINE COMPLETED ==='
-            sh 'docker-compose ps || true'
+            echo 'Pipeline execution completed!'
+            sh '''
+                echo "=== Final Status ==="
+                kubectl get pods
+                echo "=== Application URLs ==="
+                echo "Frontend: http://localhost"
+                echo "Backend API: http://localhost/api"
+            '''
+        }
+        success {
+            echo 'Pipeline succeeded! Application deployed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs above for details.'
         }
     }
 }
