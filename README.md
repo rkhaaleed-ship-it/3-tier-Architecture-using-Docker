@@ -399,6 +399,17 @@ kubectl get pods
 # Jenkins CI/CD 
 <img width="922" height="465" alt="Screenshot 2025-11-27 182841" src="https://github.com/user-attachments/assets/91cac3b6-29ca-439f-a124-b06ed52919b2" />
 <img width="949" height="463" alt="Screenshot 2025-11-27 182335" src="https://github.com/user-attachments/assets/91715fcf-c4b7-4cc5-b149-f4e4e9905e3c" />
+<img width="956" height="469" alt="Screenshot 2025-11-27 194427" src="https://github.com/user-attachments/assets/a361a690-8918-4cc5-a21a-a5c46251ff0d" />
+
+<img width="957" height="395" alt="image" src="https://github.com/user-attachments/assets/c38ac263-bd0c-4191-9b57-b1111087f6e1" />
+
+# Networking and Services
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+```
+```
+kubectl get pods -n ingress-nginx
+```
 
 
 
