@@ -11,6 +11,13 @@ pipeline {
             }
         }
         
+        stage('Check Files') {        
+            steps {
+                sh 'ls -la'
+                sh 'find . -name "*.yml" -o -name "*.yaml"'
+            }
+        }
+        
         stage('Build Docker Images') {
             steps {
                 sh 'docker-compose build'
@@ -28,7 +35,7 @@ pipeline {
                 sh 'docker ps'
                 sh 'docker-compose ps'
                 sh 'sleep 10'
-                sh 'curl -f http://localhost:5000/health || echo "Backend starting..."'
+                sh 'curl -f http://localhost:5000/ || echo "Application starting..."'
             }
         }
     }
