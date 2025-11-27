@@ -2,38 +2,33 @@ pipeline {
     agent any
     
     stages {
-        stage(' Get Code') {
+        stage('Get Code') {
             steps {
                 echo 'Downloading code from GitHub...'
                 git branch: 'master', 
+                credentialsId: '', 
                 url: 'https://github.com/rkhaaleed-ship-it/3-tier-Architecture-using-Docker.git'
             }
         }
         
-        stage(' Deploy App') {
+        stage('Build Docker Images') {
             steps {
-                echo 'Deploying to Kubernetes...'
-                sh '''
-                kubectl apply -f my-app.yaml
-                echo "Waiting for deployment..."
-                sleep 30
-                '''
+                sh 'docker-compose build'
             }
         }
         
-        stage(' Check Status') {
+        stage('Deploy App') {
             steps {
-                echo 'Checking deployment status...'
-                sh '''
-                echo "=== Pods Status ==="
-                kubectl get pods
-                echo ""
-                echo "=== Services ==="
-                kubectl get services
-                echo ""
-                echo " DEPLOYMENT SUCCESSFUL!"
-                echo " Your app is running at: http://localhost:30001"
-                '''
+                sh 'docker-compose up -d'
+            }
+        }
+        
+        stage('Check Status') {
+            steps {
+                sh 'docker ps'
+                sh 'docker-compose ps'
+                sh 'sleep 10'
+                sh 'curl -f http://localhost:5000/health || echo "Backend starting..."'
             }
         }
     }
