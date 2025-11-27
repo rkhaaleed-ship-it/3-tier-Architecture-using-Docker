@@ -7,6 +7,8 @@ services:
       - "80:80"
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     build: ./backend-flask
@@ -19,6 +21,8 @@ services:
       MYSQL_DATABASE: appdb
     depends_on:
       - database
+    networks:
+      - app-network
 
   database:
     image: mysql:8.0
@@ -29,6 +33,12 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
