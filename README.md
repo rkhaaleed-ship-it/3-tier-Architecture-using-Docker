@@ -410,6 +410,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 ```
 kubectl get pods -n ingress-nginx
 ```
+<img width="916" height="161" alt="Screenshot 2025-11-27 195029" src="https://github.com/user-attachments/assets/88d4a737-8600-494d-a02d-cfd4d578fdab" />
+<img width="923" height="461" alt="Screenshot 2025-11-27 194949" src="https://github.com/user-attachments/assets/59046376-ce28-4871-a7b7-47540c28be25" />
 
 
 
