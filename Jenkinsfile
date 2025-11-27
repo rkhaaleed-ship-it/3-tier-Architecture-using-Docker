@@ -11,36 +11,21 @@ pipeline {
             }
         }
         
-        stage('Check Files') {        
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'ls -la'
-                sh 'find . -name "*.yml" -o -name "*.yaml"'
-            }
-        }
-        
-        stage('Build Docker Images') {
-            steps {
-                sh 'docker-compose build'
-            }
-        }
-        
-        stage('Deploy App') {
-            steps {
-                sh 'docker-compose up -d'
+                sh 'kubectl apply -f my-app.yaml'
             }
         }
         
         stage('Check Status') {
             steps {
-                sh 'docker ps'
-                sh 'docker-compose ps'
                 sh 'sleep 10'
-                sh 'curl -f http://localhost:5000/ || echo "Application starting..."'
+                sh 'kubectl get pods'
+                sh 'kubectl get services'
             }
         }
     }
-    
-    post {
+}
         always {
             echo 'Jenkins pipeline finished!'
         }
