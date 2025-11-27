@@ -5,8 +5,6 @@ services:
     build: ./frontend-html
     ports:
       - "80:80"
-    depends_on:
-      - backend
     networks:
       - app-network
 
@@ -31,13 +29,8 @@ services:
       MYSQL_DATABASE: appdb
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
     networks:
       - app-network
-
-volumes:
-  mysql_data:
 
 networks:
   app-network:
