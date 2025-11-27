@@ -1,9 +1,7 @@
-FROM python:3.9-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+COPY . /usr/share/nginx/html
 
-COPY . .
+EXPOSE 80
 
-EXPOSE 3000
-
-CMD ["python", "-m", "http.server", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
