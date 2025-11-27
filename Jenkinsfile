@@ -1,33 +1,26 @@
 pipeline {
     agent any
-    
     stages {
         stage('Get Code') {
             steps {
-                echo 'Downloading code from GitHub...'
-                git branch: 'master', 
-                credentialsId: '', 
-                url: 'https://github.com/rkhaaleed-ship-it/3-tier-Architecture-using-Docker.git'
+                git branch: 'master', url: 'https://github.com/rkhaaleed-ship-it/3-tier-Architecture-using-Docker.git'
             }
         }
-        
-        stage('Deploy to Kubernetes') {
+        stage('Setup Docker Compose') {
             steps {
-                sh 'kubectl apply -f my-app.yaml'
+                sh 'cp ./database-mysql/docker-compose.yml ./docker-compose.yml'
             }
         }
-        
-        stage('Check Status') {
+        stage('Build and Deploy') {
             steps {
-                sh 'sleep 10'
-                sh 'kubectl get pods'
-                sh 'kubectl get services'
+                sh 'docker-compose up --build -d'
             }
         }
-    }
-}
-        always {
-            echo 'Jenkins pipeline finished!'
+        stage('Verify') {
+            steps {
+                sh 'docker ps'
+                sh 'sleep 10 && curl http://localhost:5000 || true'
+            }
         }
     }
 }
